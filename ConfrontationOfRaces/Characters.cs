@@ -20,21 +20,12 @@ namespace ConfrontationOfRaces
             Armour = armour;
             DodgeChance = dodgechance;
             Mana = mana;
-        }    
-
-        /*public void GetDamage(int damage)
-        {
-            if (Armour > damage)
-                return;
-            else         //barbarian.GetDamage(50)
-                Health -= (damage - Armour);
-        }*/
+        }
 
         public abstract void Hit(Characters enemy);
 
         public abstract void Ability(Characters enemy);
         
-
         public void GetDamage(int damage)
         {
             Health -= damage;
