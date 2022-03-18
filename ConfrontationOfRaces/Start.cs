@@ -1,25 +1,26 @@
+using System;
 
 namespace ConfrontationOfRaces
 {
     public class Start
     {
-        public void defineClassesAndStartGame()
+        public void DefineClassesAndStartGame()
         {
-            Barbarian barbarian = new Barbarian();
-            Warrior warrior = new Warrior();
-            Paladin paladin = new Paladin();
-            Knight knight = new Knight();
-            Spearman spearman = new Spearman();
-            Archer archer = new Archer();
-            Hunter hunter = new Hunter();
-            Catapult catapult = new Catapult();
-            Crossbowman crossbowman = new Crossbowman();
-            Centaur centaur = new Centaur();
-            Wizard wizard = new Wizard();
-            Sorcered sorcered = new Sorcered();
-            Cleric cleric = new Cleric();
-            Monk monk = new Monk();
-            Warlock warlock = new Warlock();
+            var barbarian = new Barbarian();
+            var warrior = new Warrior();
+            var paladin = new Paladin();
+            var knight = new Knight();
+            var spearman = new Spearman();
+            var archer = new Archer();
+            var hunter = new Hunter();
+            var catapult = new Catapult();
+            var crossbowman = new Crossbowman();
+            var centaur = new Centaur();
+            var wizard = new Wizard();
+            var sorcered = new Sorcered();
+            var cleric = new Cleric();
+            var monk = new Monk();
+            var warlock = new Warlock();
 
             Console.WriteLine(
                 "Однажды произошла великая война между расами. Многие погибли, погибают и будут погибать... " +

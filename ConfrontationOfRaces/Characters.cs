@@ -11,14 +11,14 @@ namespace ConfrontationOfRaces
         public int Armour;
         public int DodgeChance;
         public int Mana;
-        public Characters(string name, int health, int damage, string type, int armour, int dodgechance, int mana)
+        public Characters(string name, int health, int damage, string type, int armour, int dodgeChance, int mana)
         {
             Name = name;
             Health = health;
             Damage = damage;
             Type = type;
             Armour = armour;
-            DodgeChance = dodgechance;
+            DodgeChance = dodgeChance;
             Mana = mana;
         }
 
@@ -41,8 +41,8 @@ namespace ConfrontationOfRaces
         
         public void GetDamageDistantArtillery(int damage)
         {
-            Random random = new Random();
-            int chance = random.Next(0, 100);
+            var random = new Random();
+            var chance = random.Next(0, 100);
             if (chance < DodgeChance)
             {
                 return;
@@ -68,17 +68,11 @@ namespace ConfrontationOfRaces
                 enemy.GetDamage(damage);
             }
         }
-        
-        public void GetHealth(int health)
-        {
-            Health += health;
-        }
-        
     }
 
     public abstract class HeavyArtillery : Characters    //Class of Heavy Artillery
-    {                                           //Unique feature: armour
-        public HeavyArtillery(string name, int health, int damage, string type, int armour, int dodgechance, int mana) : base(name, health, damage, type, armour, dodgechance, mana)
+    {                                           //Unique feature: Armour
+        public HeavyArtillery(string name, int health, int damage, string type, int armour, int dodgeChance, int mana) : base(name, health, damage, type, armour, dodgeChance, mana)
         {
         }
         
@@ -86,7 +80,7 @@ namespace ConfrontationOfRaces
 
     public abstract class DistantArtillery : Characters  //Class of Distant Artillery
     {                                           //Unique feature: Dodge Chance
-        public DistantArtillery(string name, int health, int damage, string type, int armour, int dodgechance, int mana) : base(name, health, damage, type, armour, dodgechance, mana)
+        public DistantArtillery(string name, int health, int damage, string type, int armour, int dodgeChance, int mana) : base(name, health, damage, type, armour, dodgeChance, mana)
         {
         }
     }
@@ -95,13 +89,13 @@ namespace ConfrontationOfRaces
     {                               //Unique features: Mana, Mana Cost
         public int Mana;
         public int ManaCost;
-        public Mage(string name, int health, int damage, string type, int armour, int dodgechance, int mana, int manaCost) : base(name, health, damage, type, armour, dodgechance, mana)
+        public Mage(string name, int health, int damage, string type, int armour, int dodgeChance, int mana, int manaCost) : base(name, health, damage, type, armour, dodgeChance, mana)
         {
             Mana = mana;
             ManaCost = manaCost;
         }
         
-        public void manaWaste(int mana)
+        public void ManaWaste(int mana)
         {
             Mana -= mana;
         }
@@ -331,7 +325,7 @@ namespace ConfrontationOfRaces
             }
             else
             {
-                manaWaste(ManaCost);
+                ManaWaste(ManaCost);
                 enemy.CheckAndGetDamage(enemy, (int) (Damage * 1.5));
             }
         }
@@ -361,7 +355,7 @@ namespace ConfrontationOfRaces
             }
             else
             {
-                manaWaste(ManaCost);
+                ManaWaste(ManaCost);
                 CheckAndGetDamage(enemy, (int) (enemy.Health * 0.3));
             }
         }
@@ -392,9 +386,9 @@ namespace ConfrontationOfRaces
             }
             else
             {
-                manaWaste(ManaCost);
-                Random random = new Random();
-                int criticalChance = random.Next(0, 10);
+                ManaWaste(ManaCost);
+                var random = new Random();
+                var criticalChance = random.Next(0, 10);
                 if (criticalChance > 4)
                 {
                     CheckAndGetDamage(enemy, (3 * Damage));
@@ -432,7 +426,7 @@ namespace ConfrontationOfRaces
             }
             else
             {
-                manaWaste(ManaCost);
+                ManaWaste(ManaCost);
                 CheckAndGetDamage(enemy, 2 * Damage);
             }
         }
@@ -463,7 +457,7 @@ namespace ConfrontationOfRaces
             }
             else
             {
-                manaWaste(ManaCost);
+                ManaWaste(ManaCost);
                 CheckAndGetDamage(enemy, 60 + Damage);
             }
         }
