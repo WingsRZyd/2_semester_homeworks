@@ -1,64 +1,143 @@
+using System;
+using System.Runtime.CompilerServices;
+
+
 namespace ConfrontationOfRaces
 {
-    
     public class BattlePvP                                                       //Бой Игрока против Игрока
     {
+        public int NumberOfPlayer()
+        {
+            int numberOfPlayer;
+            while (true)
+            {
+                if (int.TryParse(Console.ReadLine(), out numberOfPlayer))
+                {
+                    if ((int)numberOfPlayer >= 1 && (int)numberOfPlayer <= 15)
+                    {
+                        return numberOfPlayer;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Ошибка ввода! Введите целое число.");
+                        continue;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Ошибка ввода! Введите целое число.");
+                    continue;
+                }
+            }
+        }
+        
+        public int ButtonOfPlayer()
+        {
+            int buttonOfPlayer;
+            while (true)
+            {
+                if (int.TryParse(Console.ReadLine(), out buttonOfPlayer))
+                {
+                    if ((int)buttonOfPlayer == 1 || (int)buttonOfPlayer == 2)
+                    {
+                        return buttonOfPlayer;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Ошибка ввода! Введите целое число.");
+                        continue;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Ошибка ввода! Введите целое число.");
+                    continue;
+                }
+            }
+        }
+        
+        public int TypeOfGame()
+        {
+            int typeOfGame;
+            while (true)
+            {
+                if (int.TryParse(Console.ReadLine(), out typeOfGame))
+                {
+                    if ((int)typeOfGame == 1 || (int)typeOfGame == 2 || (int)typeOfGame == 3)
+                    {
+                        return typeOfGame;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Ошибка ввода! Введите целое число.");
+                        continue;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Ошибка ввода! Введите целое число.");
+                    continue;
+                }
+            }
+        }
+
         public void BattlePlayers()
         {
-            Start start = new Start();
-            Console.WriteLine("\nИгрок 1, введите соответствующий номер");       
-            int numberPlayer1 = Int32.Parse(Console.ReadLine());                 //Выбор игроком 1 персонажа
+            var start = new Start();
+            Console.WriteLine("\nИгрок 1, введите соответствующий номер");
+
+            int numberPlayer1 = NumberOfPlayer();                                //Выбор игроком 1 персонажа
                 
-            var Player1 = start.ChooseCharacter(numberPlayer1);          //Присвоение Игроку 1 персонажа
-            Console.WriteLine($"Игрок 1 выбрал персонажа {Player1.Name} ");
-            Console.WriteLine($"{Player1.Name} имеет {Player1.Health} здоровья, {Player1.Damage} урона, {Player1.Armour} брони, {Player1.DodgeChance}% вероятностью уклонения и {Player1.Mana} маны.");
+            var player1 = start.ChooseCharacter(numberPlayer1);          //Присвоение Игроку 1 персонажа
+            Console.WriteLine($"Игрок 1 выбрал персонажа {player1.Name} ");
+            Console.WriteLine($"{player1.Name} имеет {player1.Health} здоровья, {player1.Damage} урона, {player1.Armour} брони, {player1.DodgeChance}% вероятностью уклонения и {player1.Mana} маны.");
                 
             Console.WriteLine("\nИгрок 2, введите соответствующий номер");
-            int numberPlayer2 = Int32.Parse(Console.ReadLine());                 //Выбор игроком 2 персонажа
-            var Player2 = start.ChooseCharacter(numberPlayer2);          //Присвоение Игроку 2 персонажа
-            Console.WriteLine($"Игрок 2 выбрал персонажа {Player2.Name} ");
-            Console.WriteLine($"{Player2.Name} имеет {Player2.Health} здоровья, {Player2.Damage} урона, {Player2.Armour} брони, {Player2.DodgeChance}% вероятностью уклонения и {Player2.Mana} маны.");
+            int numberPlayer2 = NumberOfPlayer();                 //Выбор игроком 2 персонажа
+            var player2 = start.ChooseCharacter(numberPlayer2);          //Присвоение Игроку 2 персонажа
+            Console.WriteLine($"Игрок 2 выбрал персонажа {player2.Name} ");
+            Console.WriteLine($"{player2.Name} имеет {player2.Health} здоровья, {player2.Damage} урона, {player2.Armour} брони, {player2.DodgeChance}% вероятностью уклонения и {player2.Mana} маны.");
             
-            while ((Player1.Health != 0) || (Player2.Health != 0))      //Бой
+            while ((player1.Health != 0) || (player2.Health != 0))      //Бой
             {
-                Console.WriteLine($"\n{Player1.Name} имеет {Player1.Health} здоровья, {Player1.Damage} урона, {Player1.Armour} брони, {Player1.DodgeChance}% вероятностью уклонения и {Player1.Mana} маны.");
+                Console.WriteLine($"\n{player1.Name} имеет {player1.Health} здоровья, {player1.Damage} урона, {player1.Armour} брони, {player1.DodgeChance}% вероятностью уклонения и {player1.Mana} маны.");
                 Console.WriteLine("Ход игрока 1:");
                 Console.WriteLine("Нажмите: \n1, чтобы нанести атаку    \n2, чтобы использовать способность");
-                int buttonPlayer1 = Int32.Parse(Console.ReadLine());             //Выбор вида атаки
+                int buttonPlayer1 = ButtonOfPlayer();             //Выбор вида атаки
                 switch (buttonPlayer1)
                 {
                     case 1:
-                        Player1.Hit(Player2);
+                        player1.Hit(player2);
                         break;
                     case 2:
-                        Player1.Ability(Player2);
+                        player1.Ability(player2);
                         break;
                 }
 
-                if (Player2.Health <= 0)
+                if (player2.Health <= 0)
                 {
-                    Player2.Health = 0;
+                    player2.Health = 0;
                     Console.WriteLine("Игра закончилась, победил игрок 1");
                     break;
                 }
 
-                Console.WriteLine($"\n{Player2.Name} имеет {Player2.Health} здоровья, {Player2.Damage} урона, {Player2.Armour} брони, {Player2.DodgeChance}% вероятностью уклонения и {Player2.Mana} маны.");
+                Console.WriteLine($"\n{player2.Name} имеет {player2.Health} здоровья, {player2.Damage} урона, {player2.Armour} брони, {player2.DodgeChance}% вероятностью уклонения и {player2.Mana} маны.");
                 Console.WriteLine("Ход игрока 2:");
                 Console.WriteLine("Нажмите: \n1, чтобы нанести атаку    \n2, чтобы использовать способность");
-                int buttonPlayer2 = Int32.Parse(Console.ReadLine());
+                int buttonPlayer2 = ButtonOfPlayer();
                 switch (buttonPlayer2)                                           //Выбор вида атаки
                 {
                     case 1:
-                        Player2.Hit(Player1);
+                        player2.Hit(player1);
                         break;
                     case 2:
-                        Player2.Ability(Player1);
+                        player2.Ability(player1);
                         break;
                 }
 
-                if (Player1.Health <= 0)
+                if (player1.Health <= 0)
                 {
-                    Player1.Health = 0;
+                    player1.Health = 0;
                     Console.WriteLine("Игра закончилась, победил игрок 2");
                     break;
                 }
@@ -70,60 +149,61 @@ namespace ConfrontationOfRaces
     {
         public void BattlePlayerVsAI()
         {
-            Start start = new Start();
+            var start = new Start();
+            var battle = new BattlePvP();
             Console.WriteLine("\nИгрок 1, введите соответствующий номер");       
-            int numberPlayer1 = Int32.Parse(Console.ReadLine());
+            var numberPlayer1 = battle.NumberOfPlayer();
                 
-            var Player1 = start.ChooseCharacter(numberPlayer1);         //Присвоение игроку персонажа
-            Console.WriteLine($"Игрок 1 выбрал персонажа {Player1.Name} ");
-            Console.WriteLine($"{Player1.Name} имеет {Player1.Health} здоровья, {Player1.Damage} урона, {Player1.Armour} брони, {Player1.DodgeChance}% вероятностью уклонения и {Player1.Mana} маны.");
+            var player1 = start.ChooseCharacter(numberPlayer1);         //Присвоение игроку персонажа
+            Console.WriteLine($"Игрок 1 выбрал персонажа {player1.Name} ");
+            Console.WriteLine($"{player1.Name} имеет {player1.Health} здоровья, {player1.Damage} урона, {player1.Armour} брони, {player1.DodgeChance}% вероятностью уклонения и {player1.Mana} маны.");
 
             Random random = new Random();                                        
             int numberPlayer2 = random.Next(1, 15);     
-            var Player2 = start.ChooseCharacter(numberPlayer2);         //Присвоение боту рандомного персонажа
-            Console.WriteLine($"Бот выбрал персонажа {Player2.Name} ");          
-            Console.WriteLine($"{Player2.Name} имеет {Player2.Health} здоровья, {Player2.Damage} урона, {Player2.Armour} брони, {Player2.DodgeChance}% вероятностью уклонения и {Player2.Mana} маны.");
+            var player2 = start.ChooseCharacter(numberPlayer2);         //Присвоение боту рандомного персонажа
+            Console.WriteLine($"Бот выбрал персонажа {player2.Name} ");          
+            Console.WriteLine($"{player2.Name} имеет {player2.Health} здоровья, {player2.Damage} урона, {player2.Armour} брони, {player2.DodgeChance}% вероятностью уклонения и {player2.Mana} маны.");
             
-            while ((Player1.Health != 0) || (Player2.Health != 0))               //Бой
+            while ((player1.Health != 0) || (player2.Health != 0))               //Бой
             {
-                Console.WriteLine($"\n{Player1.Name} имеет {Player1.Health} здоровья, {Player1.Damage} урона, {Player1.Armour} брони, {Player1.DodgeChance}% вероятностью уклонения и {Player1.Mana} маны.");
+                Console.WriteLine($"\n{player1.Name} имеет {player1.Health} здоровья, {player1.Damage} урона, {player1.Armour} брони, {player1.DodgeChance}% вероятностью уклонения и {player1.Mana} маны.");
                 Console.WriteLine("Ход игрока 1:");
                 Console.WriteLine("Нажмите: \n1, чтобы нанести атаку    \n2, чтобы использовать способность");
-                int buttonPlayer1 = Int32.Parse(Console.ReadLine());
+                var buttonPlayer1 = battle.ButtonOfPlayer();
                 switch (buttonPlayer1)
                 {
                     case 1:
-                        Player1.Hit(Player2);
+                        player1.Hit(player2);
                         break;
                     case 2:
-                        Player1.Ability(Player2);
+                        player1.Ability(player2);
                         break;
                 }
 
-                if (Player2.Health <= 0)
+                if (player2.Health <= 0)
                 {
-                    Player2.Health = 0;
+                    player2.Health = 0;
                     Console.WriteLine("Игра закончилась, победил игрок 1");
                     break;
                 }
 
-                Console.WriteLine($"\n{Player2.Name} имеет {Player2.Health} здоровья, {Player2.Damage} урона, {Player2.Armour} брони, {Player2.DodgeChance}% вероятностью уклонения и {Player2.Mana} маны.");
+                Console.WriteLine($"\n{player2.Name} имеет {player2.Health} здоровья, {player2.Damage} урона, {player2.Armour} брони, {player2.DodgeChance}% вероятностью уклонения и {player2.Mana} маны.");
                 Console.WriteLine("Ход бота 2:");
                 Console.WriteLine("Нажмите: \n1, чтобы нанести атаку    \n2, чтобы использовать способность");
-                int buttonPlayer2 = random.Next(1,3);
+                var buttonPlayer2 = random.Next(1,3);
                 switch (buttonPlayer2)
                 {
                     case 1:
-                        Player2.Hit(Player1);
+                        player2.Hit(player1);
                         break;
                     case 2:
-                        Player2.Ability(Player1);
+                        player2.Ability(player1);
                         break;
                 }
 
-                if (Player1.Health <= 0)
+                if (player1.Health <= 0)
                 {
-                    Player1.Health = 0;
+                    player1.Health = 0;
                     Console.WriteLine("Игра закончилась, победил игрок 2");
                     break;
                 }
@@ -138,61 +218,61 @@ namespace ConfrontationOfRaces
             Start start = new Start();
             Random random = new Random();
             Console.WriteLine("\nИгрок 1, введите соответствующий номер");
-            int numberPlayer1 = random.Next(1, 15);
+            var numberPlayer1 = random.Next(1, 15);
 
-            var Player1 = start.ChooseCharacter(numberPlayer1); //Присвоение боту 1 рандомного персонажа
-            Console.WriteLine($"Бот 1 выбрал персонажа {Player1.Name} ");
+            var player1 = start.ChooseCharacter(numberPlayer1); //Присвоение боту 1 рандомного персонажа
+            Console.WriteLine($"Бот 1 выбрал персонажа {player1.Name} ");
             Console.WriteLine(
-                $"{Player1.Name} имеет {Player1.Health} здоровья, {Player1.Damage} урона, {Player1.Armour} брони, {Player1.DodgeChance}% вероятностью уклонения и {Player1.Mana} маны.");
+                $"{player1.Name} имеет {player1.Health} здоровья, {player1.Damage} урона, {player1.Armour} брони, {player1.DodgeChance}% вероятностью уклонения и {player1.Mana} маны.");
 
-            int numberPlayer2 = random.Next(1, 15);
-            var Player2 = start.ChooseCharacter(numberPlayer2); //Присвоение боту 2 рандомного персонажа
-            Console.WriteLine($"Бот 2 выбрал персонажа {Player2.Name} ");
+            var numberPlayer2 = random.Next(1, 15);
+            var player2 = start.ChooseCharacter(numberPlayer2); //Присвоение боту 2 рандомного персонажа
+            Console.WriteLine($"Бот 2 выбрал персонажа {player2.Name} ");
             Console.WriteLine(
-                $"{Player2.Name} имеет {Player2.Health} здоровья, {Player2.Damage} урона, {Player2.Armour} брони, {Player2.DodgeChance}% вероятностью уклонения и {Player2.Mana} маны.");
+                $"{player2.Name} имеет {player2.Health} здоровья, {player2.Damage} урона, {player2.Armour} брони, {player2.DodgeChance}% вероятностью уклонения и {player2.Mana} маны.");
 
-            while ((Player1.Health != 0) || (Player2.Health != 0)) //Бой
+            while ((player1.Health != 0) || (player2.Health != 0)) //Бой
             {
                 Console.WriteLine(
-                    $"\n{Player1.Name} имеет {Player1.Health} здоровья, {Player1.Damage} урона, {Player1.Armour} брони, {Player1.DodgeChance}% вероятностью уклонения и {Player1.Mana} маны.");
+                    $"\n{player1.Name} имеет {player1.Health} здоровья, {player1.Damage} урона, {player1.Armour} брони, {player1.DodgeChance}% вероятностью уклонения и {player1.Mana} маны.");
                 Console.WriteLine("Ход бота 1:");
                 Console.WriteLine("Нажмите: \n1, чтобы нанести атаку    \n2, чтобы использовать способность");
-                int buttonPlayer1 = random.Next(1, 3);
+                var buttonPlayer1 = random.Next(1, 3);
                 switch (buttonPlayer1)
                 {
                     case 1:
-                        Player1.Hit(Player2);
+                        player1.Hit(player2);
                         break;
                     case 2:
-                        Player1.Ability(Player2);
+                        player1.Ability(player2);
                         break;
                 }
 
-                if (Player2.Health <= 0)
+                if (player2.Health <= 0)
                 {
-                    Player2.Health = 0;
+                    player2.Health = 0;
                     Console.WriteLine("Игра закончилась, победил игрок 1");
                     break;
                 }
 
                 Console.WriteLine(
-                    $"\n{Player2.Name} имеет {Player2.Health} здоровья, {Player2.Damage} урона, {Player2.Armour} брони, {Player2.DodgeChance}% вероятностью уклонения и {Player2.Mana} маны.");
+                    $"\n{player2.Name} имеет {player2.Health} здоровья, {player2.Damage} урона, {player2.Armour} брони, {player2.DodgeChance}% вероятностью уклонения и {player2.Mana} маны.");
                 Console.WriteLine("Ход бота 2:");
                 Console.WriteLine("Нажмите: \n1, чтобы нанести атаку    \n2, чтобы использовать способность");
-                int buttonPlayer2 = random.Next(1, 3);
+                var buttonPlayer2 = random.Next(1, 3);
                 switch (buttonPlayer2)
                 {
                     case 1:
-                        Player2.Hit(Player1);
+                        player2.Hit(player1);
                         break;
                     case 2:
-                        Player2.Ability(Player1);
+                        player2.Ability(player1);
                         break;
                 }
 
-                if (Player1.Health <= 0)
+                if (player1.Health <= 0)
                 {
-                    Player1.Health = 0;
+                    player1.Health = 0;
                     Console.WriteLine("Игра закончилась, победил игрок 2");
                     break;
                 }
